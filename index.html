@@ -14,6 +14,7 @@
             function update() {
                 console.log("updating...");
                 wsb.getTickers(url).then(() => {
+                    console.log("total comments parsed: " + wsb.comment_ids.length);
                     var ctx = document.getElementById('myChart');
                     if (myChart) myChart.destroy(); //may not be needed            
                     var myChart = new Chart(ctx, {
