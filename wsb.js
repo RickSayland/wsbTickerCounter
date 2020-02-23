@@ -1,9 +1,13 @@
 // GET THE COMMENTS
 var listOfTickers = [];
 var tickerRegex = '[ $][A-Z]{2,4}[ .!?]';
+var putsRegex = "\\bputs\\b";
+var callsRegex = "\\bcalls\\b"
 var wsb = {
     tickers: [],
     comment_ids: [],
+    puts: 0,
+    calls: 0,
     getTickers: (url) => {
         return $.ajax({
             dataType: "json",
@@ -56,6 +60,8 @@ var wsb = {
                     var comment = comments[index];
                     if (comment) {
                         var match = comment.match(tickerRegex);
+                        var puts = comment.match(putsRegex);
+                        var calls = comment.match(callsRegex);
                         if (match) {
                             var ticker = match[0].trim().replace(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g, ''); //remove punctuation
                             if (wsb.validateTicker(ticker)) {
@@ -70,6 +76,12 @@ var wsb = {
                                     wsb.tickers.push(ticker);
                                 }
                             }
+                        }
+                        if (puts) {
+                            wsb.puts += 1;
+                        }
+                        if (calls) {
+                            wsb.calls += 1;
                         }
                     };
                 });

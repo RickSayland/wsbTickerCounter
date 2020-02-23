@@ -29,6 +29,8 @@
                 <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="https://old.reddit.com/r/wallstreetbets/comments/f8fuqb/what_are_your_moves_tomorrow_february_24_2020/">
                 <button class="btn btn-success" id="urlUpdateButton">Update</button>
             </div>
+            <div id="puts"></div>
+            <div id="calls"></div>
             <div class="progress">
                 <div id="dynamic" class="progress-bar progress-bar-success progress-bar-striped active"
                     role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
@@ -46,6 +48,8 @@
             var some_colors = getRandomColorHex(50);
             function update() {
                 console.log("updating...");
+                document.getElementById('puts').innerHTML = "PUTS: " + wsb.puts;
+                document.getElementById('calls').innerHTML = "CALLS: " + wsb.calls;
                 wsb.getTickers(url).then(() => {
                     console.log("total comments parsed: " + wsb.comment_ids.length);
                     var ctx = document.getElementById('myChart');
