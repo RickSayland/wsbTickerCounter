@@ -26,6 +26,17 @@ var wsb = {
                                     wsb.comment_ids.push(reply.data.name);
                                 }
                             }
+                            if (reply.data.replies) { //are there replies to the reply?
+                                $.each(reply.data.replies.data.children, (k, replyreply) => { //loop through replies-replies
+                                    //Is it a new comment_reply
+                                    if ($.inArray(replyreply.data.name, wsb.comment_ids) == -1) {
+                                        if (replyreply.kind == "t1") {
+                                            comments.push(replyreply.data.body);
+                                            wsb.comment_ids.push(replyreply.data.name);
+                                        }
+                                    }
+                                })
+                            }
                         })
                     }
                 })
@@ -64,6 +75,6 @@ var wsb = {
         return ticketCounts;
     },
     validateTicker: (symbol) => {
-        return ($.inArray(symbol,all_tickers) >= 0)
+        return ($.inArray(symbol, all_tickers) >= 0)
     }
 }
