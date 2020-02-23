@@ -11,19 +11,19 @@ var wsb = {
             success: (result) => {
                 var topLevelComments = result[1].data.children;
                 var comments = [];
-                $.each(topLevelComments, (i) => {
+                $.each(topLevelComments, (i, tlc) => {
                     //Is it a new comment?
-                    if ($.inArray(topLevelComments[i].data.name, wsb.comment_ids) == -1) {
-                        comments.push(topLevelComments[i].data.body); //add top level comment
-                        wsb.comment_ids.push(topLevelComments[i].data.name); //add top level comment_id
+                    if ($.inArray(tlc.data.name, wsb.comment_ids) == -1) {
+                        comments.push(tlc.data.body); //add top level comment
+                        wsb.comment_ids.push(tlc.data.name); //add top level comment_id
                     }
-                    if (topLevelComments[i].data.replies) { //are there replies?
-                        $.each(topLevelComments[i].data.replies.data.children, (j) => { //loop through replies
+                    if (tlc.data.replies) { //are there replies?
+                        $.each(tlc.data.replies.data.children, (j, reply) => { //loop through replies
                             //Is it a new comment_reply
-                            if ($.inArray(topLevelComments[i].data.replies.data.children[j].data.name, wsb.comment_ids) == -1) {
-                                if (topLevelComments[i].data.replies.data.children[j].kind == "t1") {
-                                    comments.push(topLevelComments[i].data.replies.data.children[j].data.body);
-                                    wsb.comment_ids.push(topLevelComments[i].data.replies.data.children[j].data.name);
+                            if ($.inArray(reply.data.name, wsb.comment_ids) == -1) {
+                                if (reply.kind == "t1") {
+                                    comments.push(reply.data.body);
+                                    wsb.comment_ids.push(reply.data.name);
                                 }
                             }
                         })
