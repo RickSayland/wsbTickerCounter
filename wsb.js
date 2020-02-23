@@ -42,6 +42,8 @@ var wsb = {
         return ticketCounts;
     },
     isValidTicker: (tickerString) => {
-        return (tickerString != ' WITH ')
+        return (tickerString.trim() != 'WITH' &&
+                tickerString.trim() != 'WSB' &&
+                tickerString.trim() != 'NAZI')
     }
 }
