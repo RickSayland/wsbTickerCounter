@@ -11,16 +11,16 @@ var wsb = {
             success: (result) => {
                 var topLevelComments = result[1].data.children;
                 var comments = [];
-                $.each(topLevelComments,(i) => {
+                $.each(topLevelComments, (i) => {
                     //Is it a new comment?
                     if ($.inArray(topLevelComments[i].data.name, wsb.comment_ids) == -1) {
                         comments.push(topLevelComments[i].data.body); //add top level comment
                         wsb.comment_ids.push(topLevelComments[i].data.name); //add top level comment_id
                     }
-                    if(topLevelComments[i].data.replies) { //are there replies?
+                    if (topLevelComments[i].data.replies) { //are there replies?
                         $.each(topLevelComments[i].data.replies.data.children, (j) => { //loop through replies
                             //Is it a new comment_reply
-                            if ($.inArray(topLevelComments[i].data.replies.data.children[j].data.name, wsb.comment_ids) == -1){
+                            if ($.inArray(topLevelComments[i].data.replies.data.children[j].data.name, wsb.comment_ids) == -1) {
                                 if (topLevelComments[i].data.replies.data.children[j].kind == "t1") {
                                     comments.push(topLevelComments[i].data.replies.data.children[j].data.body);
                                     wsb.comment_ids.push(topLevelComments[i].data.replies.data.children[j].data.name);
@@ -29,32 +29,32 @@ var wsb = {
                         })
                     }
                 })
-
                 $.each(comments, (index) => {
                     var comment = comments[index];
                     if (comment) {
                         var match = comment.match(tickerRegex);
-                        if (match && wsb.isValidTicker(match[0])) {
-                            var ticker = match[0].replace(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g,''); //remove punctuation
-                            //If we dont have it yet, add it to the list
-                            if ($.inArray(ticker,wsb.tickers) == -1) {
-                                listOfTickers.push(ticker);
-                                wsb.tickers.push(ticker);
-                            }
-                            //If we do have it, only update internal list
-                            if ($.inArray(ticker,wsb.tickers) >= 0) {
-                                wsb.tickers.push(ticker)
+                        if (match) {
+                            var ticker = match[0].trim().replace(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g, ''); //remove punctuation
+                            if (wsb.isValidTicker(ticker)) {
+                                //If we dont have it yet, add it to the list
+                                if ($.inArray(ticker, wsb.tickers) == -1) {
+                                    listOfTickers.push(ticker);
+                                    wsb.tickers.push(ticker);
+                                }
+                                //If we do have it, only update internal list
+                                if ($.inArray(ticker, wsb.tickers) >= 0) {
+                                    wsb.tickers.push(ticker)
+                                }
                             }
                         }
                     };
-    
                 });
             }
         });
     },
     getTickerCounts: () => {
         var ticketCounts = [];
-        $.each(listOfTickers,(index,value) => {
+        $.each(listOfTickers, (index, value) => {
             var numOccurences = $.grep(wsb.tickers, function (elem) {
                 return elem === value;
             }).length;
@@ -64,13 +64,13 @@ var wsb = {
     },
     isValidTicker: (tickerString) => {
         return (tickerString.trim() != 'WITH' &&
-                tickerString.trim() != 'WSB' &&
-                tickerString.trim() != 'FUCK' &&
-                tickerString.trim() != 'SEC' &&
-                tickerString.trim() != 'CNN' &&
-                tickerString.trim() != 'BUT' &&
-                tickerString.trim() != 'BTFD.' &&
-                tickerString.trim() != 'DONT' &&
-                tickerString.trim() != 'NAZI')
+            tickerString.trim() != 'WSB' &&
+            tickerString.trim() != 'FUCK' &&
+            tickerString.trim() != 'SEC' &&
+            tickerString.trim() != 'CNN' &&
+            tickerString.trim() != 'BUT' &&
+            tickerString.trim() != 'BTFD.' &&
+            tickerString.trim() != 'DONT' &&
+            tickerString.trim() != 'NAZI')
     }
 }

@@ -24,7 +24,7 @@
                     var myChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
-                            labels: listOfTickers,                           
+                            labels: listOfTickers,
                             datasets: [{
                                 label: 'Count (' + wsb.comment_ids.length + ' comments parsed)',
                                 //backgroundColor : getRandomColorHex(25),
@@ -53,8 +53,8 @@
                     color = "#";
                     for (var i = 1; i <= 6; i++) {
                         color += hex[Math.floor(Math.random() * 16)];
-                }
-                colors.push(color);
+                    }
+                    colors.push(color);
                 }
                 return colors;
             }
