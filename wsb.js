@@ -4,10 +4,10 @@ var countOfTickers = [];
 var tickerRegex = '[ ][A-Z]{3,4}[ .!?]';
 var wsb = {
     tickers: [],
-    getTickers: () => {
+    getTickers: (url) => {
         return $.ajax({
             dataType: "json",
-            url: 'https://old.reddit.com/r/wallstreetbets/comments/f7hla8/weekend_discussion_thread_february_2123_2020/.json',
+            url: url,
             success: (result) => {
                 var comments = result[1].data.children;
                 $.each(comments, (index) => {

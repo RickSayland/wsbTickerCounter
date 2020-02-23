@@ -10,9 +10,10 @@
     <script>
         $(document).ready(function () {
             var refreshRate = 10 * 1000;
+            var url = 'https://old.reddit.com/r/wallstreetbets/comments/f7hla8/weekend_discussion_thread_february_2123_2020/.json';
             function update() {
                 console.log("updating...");
-                wsb.getTickers().then(() => {
+                wsb.getTickers(url).then(() => {
                     var ctx = document.getElementById('myChart');
                     if (myChart) myChart.destroy(); //may not be needed            
                     var myChart = new Chart(ctx, {
