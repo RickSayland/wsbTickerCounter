@@ -17,24 +17,17 @@ var wsb = {
                     if ($.inArray(topLevelComments[i].data.name, wsb.comment_ids) == -1) {
                         comments.push(topLevelComments[i].data.body); //add top level comment
                         wsb.comment_ids.push(topLevelComments[i].data.name); //add top level comment_id
-                        if(topLevelComments[i].data.replies) { //are there replies?
-                            $.each(topLevelComments[i].data.replies.data.children, (j) => { //loop through replies
-                                //Is it a new comment_reply
-                                if ($.inArray(topLevelComments[i].data.replies.data.children[j].data.name, wsb.comment_ids) == -1){
-                                    if (topLevelComments[i].data.replies.data.children[j].kind == "t1") {
-                                        comments.push(topLevelComments[i].data.replies.data.children[j].data.body);
-                                        wsb.comment_ids.push(topLevelComments[i].data.replies.data.children[j].data.name);
-                                    }
-                                }
-                                if ($.inArray(topLevelComments[i].data.replies.data.children, wsb.comment_ids) >= 0){
-                                    //FORGET ABOUT IT
-                                }
-                            })
-                        }
                     }
-                    //old comment
-                    if ($.inArray(topLevelComments[i].name, wsb.comment_ids) >= 0) {
-                        //FORGET ABOUT IT
+                    if(topLevelComments[i].data.replies) { //are there replies?
+                        $.each(topLevelComments[i].data.replies.data.children, (j) => { //loop through replies
+                            //Is it a new comment_reply
+                            if ($.inArray(topLevelComments[i].data.replies.data.children[j].data.name, wsb.comment_ids) == -1){
+                                if (topLevelComments[i].data.replies.data.children[j].kind == "t1") {
+                                    comments.push(topLevelComments[i].data.replies.data.children[j].data.body);
+                                    wsb.comment_ids.push(topLevelComments[i].data.replies.data.children[j].data.name);
+                                }
+                            }
+                        })
                     }
                 })
 
@@ -74,6 +67,7 @@ var wsb = {
                 tickerString.trim() != 'WSB' &&
                 tickerString.trim() != 'FUCK' &&
                 tickerString.trim() != 'CNN' &&
+                tickerString.trim() != 'BTFD.' &&
                 tickerString.trim() != 'NAZI')
     }
 }
