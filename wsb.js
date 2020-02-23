@@ -37,7 +37,7 @@ var wsb = {
                         if (match && wsb.isValidTicker(match[0])) {
                             var ticker = match[0].replace(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g,''); //remove punctuation
                             //If we dont have it yet, add it to the list
-                            if ($.inArray(match[0],wsb.tickers) == -1) {
+                            if ($.inArray(ticker,wsb.tickers) == -1) {
                                 listOfTickers.push(ticker);
                                 wsb.tickers.push(ticker);
                             }
