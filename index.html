@@ -24,9 +24,10 @@
                     var myChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
-                            labels: listOfTickers,
+                            labels: listOfTickers,                           
                             datasets: [{
-                                label: 'Count',
+                                label: 'Count (' + wsb.comment_ids.length + ' comments parsed)',
+                                //backgroundColor : getRandomColorHex(25),
                                 data: wsb.getTickerCounts(),
                                 borderWidth: 1
                             }]
@@ -44,6 +45,18 @@
                     });
                 });
                 setTimeout(update, refreshRate);
+            }
+            function getRandomColorHex(howMany) {
+                var hex = "0123456789ABCDEF";
+                var colors = [];
+                for (var j = 1; j <= howMany; j++) {
+                    color = "#";
+                    for (var i = 1; i <= 6; i++) {
+                        color += hex[Math.floor(Math.random() * 16)];
+                }
+                colors.push(color);
+                }
+                return colors;
             }
             update();
         });
