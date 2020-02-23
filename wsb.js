@@ -15,7 +15,7 @@ var wsb = {
                     var comment = comments[i].data.body;
                     if (comment) {
                         var match = comment.match(tickerRegex);
-                        if (match) {
+                        if (match && wsb.isValidTicker(match[0])) {
                             console.log(match[0]);
                             listOfTickers.push(match[0]);
                         }
@@ -30,5 +30,9 @@ var wsb = {
                 })
             }
         });
+    },
+    
+    isValidTicker: (tickerString) => {
+        return (tickerString != ' WITH ')
     }
 }
