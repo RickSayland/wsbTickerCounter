@@ -35,7 +35,7 @@
 
     <script>
         $(document).ready(function () {
-            var refreshRate = 10 * 1000;
+            var refreshRate = 10; //seconds
             var url = 'https://old.reddit.com/r/wallstreetbets/comments/f7hla8/weekend_discussion_thread_february_2123_2020/';
             function update() {
                 console.log("updating...");
@@ -68,10 +68,10 @@
                     });
                 });
 
-                $(function () {
+                $(() => {
                     var current_progress = 0;
                     var interval = setInterval(function () {
-                        current_progress += 10;
+                        current_progress += 100/refreshRate;
                         $("#dynamic")
                             .css("width", current_progress + "%")
                             .attr("aria-valuenow", current_progress)
@@ -80,7 +80,7 @@
                             clearInterval(interval);
                     }, 1000);
                 });
-                setTimeout(update, refreshRate);
+                setTimeout(update, refreshRate * 1000);
             }
             function getRandomColorHex(howMany) {
                 var hex = "0123456789ABCDEF";
