@@ -42,7 +42,8 @@
     <script>
         var url = document.getElementById('basic-url').value;
         $(document).ready(function () {
-            var refreshRate = 10; //seconds
+            var refreshRate = 5; //seconds
+            var some_colors = getRandomColorHex(50);
             function update() {
                 console.log("updating...");
                 wsb.getTickers(url).then(() => {
@@ -55,7 +56,7 @@
                             labels: listOfTickers,
                             datasets: [{
                                 label: 'Count (' + wsb.comment_ids.length + ' comments parsed)',
-                                backgroundColor: getRandomColorHex(listOfTickers.length),
+                                backgroundColor: some_colors,
                                 data: wsb.getTickerCounts(),
                                 borderWidth: 1
                             }]
@@ -69,6 +70,9 @@
                                         beginAtZero: true
                                     }
                                 }]
+                            },
+                            animation: {
+                                duration: 0
                             }
                         }
                     });
