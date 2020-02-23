@@ -36,14 +36,14 @@ var wsb = {
                         if (match) {
                             var ticker = match[0].trim().replace(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g, ''); //remove punctuation
                             if (wsb.isValidTicker(ticker)) {
+                                //If we do have it, only update internal list
+                                if ($.inArray(ticker, wsb.tickers) >= 0) {
+                                    wsb.tickers.push(ticker)
+                                }
                                 //If we dont have it yet, add it to the list
                                 if ($.inArray(ticker, wsb.tickers) == -1) {
                                     listOfTickers.push(ticker);
                                     wsb.tickers.push(ticker);
-                                }
-                                //If we do have it, only update internal list
-                                if ($.inArray(ticker, wsb.tickers) >= 0) {
-                                    wsb.tickers.push(ticker)
                                 }
                             }
                         }
@@ -67,9 +67,11 @@ var wsb = {
             tickerString.trim() != 'WSB' &&
             tickerString.trim() != 'FUCK' &&
             tickerString.trim() != 'SEC' &&
+            tickerString.trim() != 'THIS' &&
             tickerString.trim() != 'CNN' &&
             tickerString.trim() != 'BUT' &&
-            tickerString.trim() != 'BTFD.' &&
+            tickerString.trim() != 'BTFD' &&
+            tickerString.trim() != 'CCP' &&
             tickerString.trim() != 'DONT' &&
             tickerString.trim() != 'NAZI')
     }
