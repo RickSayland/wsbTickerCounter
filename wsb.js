@@ -1,8 +1,7 @@
 // GET THE COMMENTS
 var listOfTickers = [];
 var countOfTickers = [];
-var tickerRegex3 = '[ ][A-Z]{3}[ .!?]';
-var tickerRegex4 = '[ ][A-Z]{4}[ .!?]';
+var tickerRegex = '[ ][A-Z]{3,4}[ .!?]';
 var wsb = {
     getTickers: () => {
         return $.ajax({
@@ -15,15 +14,10 @@ var wsb = {
                 $.each(comments, (i, v) => {
                     var comment = comments[i].data.body;
                     if (comment) {
-                        var match3 = comment.match(tickerRegex3);
-                        var match4 = comment.match(tickerRegex4);
-                        if (match3) {
-                            console.log(match3[0]);
-                            listOfTickers.push(match3[0]);
-                        }
-                        if (match4) {
-                            console.log(match4[0]);
-                            listOfTickers.push(match4[0]);
+                        var match = comment.match(tickerRegex);
+                        if (match) {
+                            console.log(match[0]);
+                            listOfTickers.push(match[0]);
                         }
                     };
     
