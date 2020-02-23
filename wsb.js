@@ -7,7 +7,7 @@ var wsb = {
     getTickers: (url) => {
         return $.ajax({
             dataType: "json",
-            url: url,
+            url: url + ".json",
             success: (result) => {
                 var topLevelComments = result[1].data.children;
                 var comments = [];
@@ -63,16 +63,19 @@ var wsb = {
         return ticketCounts;
     },
     isValidTicker: (tickerString) => {
-        return (tickerString.trim() != 'WITH' &&
-            tickerString.trim() != 'WSB' &&
-            tickerString.trim() != 'FUCK' &&
-            tickerString.trim() != 'SEC' &&
-            tickerString.trim() != 'THIS' &&
-            tickerString.trim() != 'CNN' &&
-            tickerString.trim() != 'BUT' &&
-            tickerString.trim() != 'BTFD' &&
-            tickerString.trim() != 'CCP' &&
-            tickerString.trim() != 'DONT' &&
-            tickerString.trim() != 'NAZI')
+        return (tickerString != 'WITH' &&
+            tickerString != 'WSB' &&
+            tickerString != 'FUCK' &&
+            tickerString != 'THAT' &&
+            tickerString != 'THE' &&
+            tickerString != 'SEC' &&
+            tickerString != 'THIS' &&
+            tickerString != 'WHO' &&
+            tickerString != 'CNN' &&
+            tickerString != 'BUT' &&
+            tickerString != 'BTFD' &&
+            tickerString != 'CCP' &&
+            tickerString != 'DONT' &&
+            tickerString != 'NAZI')
     }
 }

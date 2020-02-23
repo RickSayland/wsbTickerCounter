@@ -1,33 +1,42 @@
-<html>
-<meta charset="UTF-8">
-
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
 <body>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
     <script src="wsb.js"></script>
 
-    <div class="chart-container" style="position: relative; height:40vh; width:80vw">
-        <canvas id="myChart" style="width:800px;"></canvas>
-    </div>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">WSB Ticker Counter</h1>
+          <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+          <canvas id="myChart" style="width:800px;"></canvas>
+        </div>
+      </div>
 
     <script>
         $(document).ready(function () {
             var refreshRate = 10 * 1000;
-            var url = 'https://old.reddit.com/r/wallstreetbets/comments/f7hla8/weekend_discussion_thread_february_2123_2020/.json';
+            var url = 'https://old.reddit.com/r/wallstreetbets/comments/f7hla8/weekend_discussion_thread_february_2123_2020/';
             function update() {
                 console.log("updating...");
                 wsb.getTickers(url).then(() => {
                     console.log("total comments parsed: " + wsb.comment_ids.length);
-                    var ctx = document.getElementById('myChart');
-                    if (myChart) myChart.destroy(); //may not be needed            
+                    var ctx = document.getElementById('myChart');      
                     var myChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
                             labels: listOfTickers.sort(),
                             datasets: [{
                                 label: 'Count (' + wsb.comment_ids.length + ' comments parsed)',
-                                //backgroundColor : getRandomColorHex(25),
+                                backgroundColor : getRandomColorHex(25),
                                 data: wsb.getTickerCounts(),
                                 borderWidth: 1
                             }]
