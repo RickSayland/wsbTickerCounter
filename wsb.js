@@ -66,8 +66,11 @@ var wsb = {
         return (tickerString.trim() != 'WITH' &&
                 tickerString.trim() != 'WSB' &&
                 tickerString.trim() != 'FUCK' &&
+                tickerString.trim() != 'SEC' &&
                 tickerString.trim() != 'CNN' &&
+                tickerString.trim() != 'BUT' &&
                 tickerString.trim() != 'BTFD.' &&
+                tickerString.trim() != 'DONT' &&
                 tickerString.trim() != 'NAZI')
     }
 }

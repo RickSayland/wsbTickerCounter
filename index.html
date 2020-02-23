@@ -6,7 +6,11 @@
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
     <script src="wsb.js"></script>
-    <canvas id="myChart" width="800" height="600"></canvas>
+
+    <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+        <canvas id="myChart" style="width:800px;"></canvas>
+    </div>
+
     <script>
         $(document).ready(function () {
             var refreshRate = 10 * 1000;
