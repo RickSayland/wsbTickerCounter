@@ -1,31 +1,40 @@
 <html>
 <meta charset="UTF-8">
+
 <body>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
     <script src="wsb.js"></script>
     <canvas id="myChart" width="800" height="600"></canvas>
     <script>
         $(document).ready(function () {
-           wsb.getTickers().then(() => {
-            var ctx = document.getElementById('myChart');
-            var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: listOfTickers,
-                    datasets: [{
-                        label: 'Count',
-                        data: countOfTickers,
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: false
-                }
-            });
+            var refreshRate = 10*1000;
+            function update() {
+                console.log("updating...");
+                wsb.getTickers().then(() => {
+                    var ctx = document.getElementById('myChart');
+                    if (myChart) myChart.destroy(); //may not be needed            
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: listOfTickers,
+                            datasets: [{
+                                label: 'Count',
+                                data: wsb.getTickerCounts(listOfTickers),
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: false
+                        }
+                    });
+                });
+                setTimeout(update, refreshRate);
+            }
+            update();
         });
-           });
-            
     </script>
 </body>
+
 </html>
