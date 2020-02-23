@@ -35,6 +35,22 @@ var wsb = {
                                             wsb.comment_ids.push(replyreply.data.name);
                                         }
                                     }
+
+                                    if (replyreply.data.replies) { //are there replies to the replyreply?
+                                        $.each(replyreply.data.replies.data.children, (l, replycubed) => { //loop through replies^3
+                                            //Is it a new comment_reply
+                                            if ($.inArray(replycubed.data.name, wsb.comment_ids) == -1) {
+                                                if (replycubed.kind == "t1") {
+                                                    comments.push(replycubed.data.body);
+                                                    wsb.comment_ids.push(replycubed.data.name);
+                                                }
+                                            }
+                                        })
+                                    }
+
+
+
+
                                 })
                             }
                         })
