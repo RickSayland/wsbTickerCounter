@@ -1,6 +1,6 @@
 // GET THE COMMENTS
 var listOfTickers = [];
-var tickerRegex = '[ $][A-Z]{3,4}[ .!?]';
+var tickerRegex = '[ $][A-Z]{2,4}[ .!?]';
 var wsb = {
     tickers: [],
     comment_ids: [],
