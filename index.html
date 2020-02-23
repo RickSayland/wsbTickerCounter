@@ -23,7 +23,7 @@
 
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4">WSB Ticker Counter</h1>
+            <h1 class="display-4" id="WSBTickerCounterTitle">WSB Ticker Counter</h1>
             <label for="basic-url">URL</label>
             <div class="input-group mb-3">
                 <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="https://old.reddit.com/r/wallstreetbets/comments/f8fuqb/what_are_your_moves_tomorrow_february_24_2020/">
@@ -50,6 +50,8 @@
                 console.log("updating...");
                 document.getElementById('puts').innerHTML = "PUTS: " + wsb.puts;
                 document.getElementById('calls').innerHTML = "CALLS: " + wsb.calls;
+                if (wsb.puts > wsb.calls) document.getElementById('WSBTickerCounterTitle').innerHTML = "WSB Ticker Counter 🐻"
+                if (wsb.calls > wsb.puts) document.getElementById('WSBTickerCounterTitle').innerHTML = "WSB Ticker Counter 🐂"
                 wsb.getTickers(url).then(() => {
                     console.log("total comments parsed: " + wsb.comment_ids.length);
                     var ctx = document.getElementById('myChart');
