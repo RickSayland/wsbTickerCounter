@@ -15,13 +15,15 @@ var wsb = {
                 $.each(comments, (i, v) => {
                     var comment = comments[i].data.body;
                     if (comment) {
-                        if (comment.match(tickerRegex3)) {
-                            console.log(comment.match(tickerRegex3)[0]);
-                            listOfTickers.push(comment.match(tickerRegex3)[0]);
+                        var match3 = comment.match(tickerRegex3);
+                        var match4 = comment.match(tickerRegex4);
+                        if (match3) {
+                            console.log(match3[0]);
+                            listOfTickers.push(match3[0]);
                         }
-                        if (comment.match(tickerRegex4)) {
-                            console.log(comment.match(tickerRegex4)[0]);
-                            listOfTickers.push(comment.match(tickerRegex4)[0]);
+                        if (match4) {
+                            console.log(match4[0]);
+                            listOfTickers.push(match4[0]);
                         }
                     };
     
