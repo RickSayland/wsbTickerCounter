@@ -3,6 +3,7 @@ var listOfTickers = [];
 var countOfTickers = [];
 var tickerRegex = '[ ][A-Z]{3,4}[ .!?]';
 var wsb = {
+    tickers: [],
     getTickers: () => {
         return $.ajax({
             dataType: "json",
@@ -14,8 +15,15 @@ var wsb = {
                     if (comment) {
                         var match = comment.match(tickerRegex);
                         if (match && wsb.isValidTicker(match[0])) {
-                            console.log(match[0]);
-                            listOfTickers.push(match[0]);
+                            //If we dont have it yet, add it to the list
+                            if ($.inArray(match[0],wsb.tickers) == -1) {
+                                listOfTickers.push(match[0]);
+                                wsb.tickers.push(match[0]);
+                            }
+                            //If we do have it, only update internal list
+                            if ($.inArray(match[0],wsb.tickers) >= 0) {
+                                wsb.tickers.push(match[0])
+                            }
                         }
                     };
     
@@ -23,10 +31,10 @@ var wsb = {
             }
         });
     },
-    getTickerCounts: (tickerArray) => {
+    getTickerCounts: () => {
         var ticketCounts = [];
-        $.each(tickerArray,(index,value) => {
-            var numOccurences = $.grep(tickerArray, function (elem) {
+        $.each(listOfTickers,(index,value) => {
+            var numOccurences = $.grep(wsb.tickers, function (elem) {
                 return elem === value;
             }).length;
             ticketCounts.push(numOccurences);
