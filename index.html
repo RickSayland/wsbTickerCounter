@@ -49,7 +49,7 @@
                             labels: listOfTickers,
                             datasets: [{
                                 label: 'Count (' + wsb.comment_ids.length + ' comments parsed)',
-                                backgroundColor: getRandomColorHex(25),
+                                backgroundColor: getRandomColorHex(listOfTickers.length),
                                 data: wsb.getTickerCounts(),
                                 borderWidth: 1
                             }]
