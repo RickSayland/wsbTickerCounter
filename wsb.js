@@ -43,6 +43,7 @@ var wsb = {
                                 //If we dont have it yet, add it to the list
                                 if ($.inArray(ticker, wsb.tickers) == -1) {
                                     listOfTickers.push(ticker);
+                                    listOfTickers.sort();
                                     wsb.tickers.push(ticker);
                                 }
                             }

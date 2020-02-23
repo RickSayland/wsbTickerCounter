@@ -28,10 +28,11 @@
                 wsb.getTickers(url).then(() => {
                     console.log("total comments parsed: " + wsb.comment_ids.length);
                     var ctx = document.getElementById('myChart');      
+                    ctx.getContext('2d').clearRect(0, 0, ctx.width, ctx.height);
                     var myChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
-                            labels: listOfTickers.sort(),
+                            labels: listOfTickers,
                             datasets: [{
                                 label: 'Count (' + wsb.comment_ids.length + ' comments parsed)',
                                 backgroundColor : getRandomColorHex(25),
