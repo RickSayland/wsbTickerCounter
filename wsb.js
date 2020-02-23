@@ -35,14 +35,15 @@ var wsb = {
                     if (comment) {
                         var match = comment.match(tickerRegex);
                         if (match && wsb.isValidTicker(match[0])) {
+                            var ticker = match[0].replace(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g,''); //remove punctuation
                             //If we dont have it yet, add it to the list
                             if ($.inArray(match[0],wsb.tickers) == -1) {
-                                listOfTickers.push(match[0]);
-                                wsb.tickers.push(match[0]);
+                                listOfTickers.push(ticker);
+                                wsb.tickers.push(ticker);
                             }
                             //If we do have it, only update internal list
-                            if ($.inArray(match[0],wsb.tickers) >= 0) {
-                                wsb.tickers.push(match[0])
+                            if ($.inArray(ticker,wsb.tickers) >= 0) {
+                                wsb.tickers.push(ticker)
                             }
                         }
                     };
