@@ -9,7 +9,7 @@
     <canvas id="myChart" width="800" height="600"></canvas>
     <script>
         $(document).ready(function () {
-            var refreshRate = 10*1000;
+            var refreshRate = 10 * 1000;
             function update() {
                 console.log("updating...");
                 wsb.getTickers().then(() => {
@@ -21,12 +21,19 @@
                             labels: listOfTickers,
                             datasets: [{
                                 label: 'Count',
-                                data: wsb.getTickerCounts(listOfTickers),
+                                data: wsb.getTickerCounts(),
                                 borderWidth: 1
                             }]
                         },
                         options: {
-                            responsive: false
+                            responsive: false,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
                         }
                     });
                 });
