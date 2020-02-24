@@ -141,7 +141,7 @@ var utilityFunctions = {
             var red = Math.floor(Math.random() * 255);
             var green = Math.floor(Math.random() * 255);
             var blue = Math.floor(Math.random() * 255);
-            var color = 'rgba(' + red + ',' + green + ',' + blue + ',' + 0.5 + ')';
+            var color = 'rgba(' + red + ',' + green + ',' + blue + ',' + 0.70 + ')';
             colors.push(color);
         }
         return colors;
