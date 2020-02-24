@@ -103,9 +103,10 @@ var wsb = {
     },
     makeChart: () => {
         //Make the chart
-        var ctx = document.getElementById('myChart');
-        ctx.getContext('2d').clearRect(0, 0, ctx.width, ctx.height);
-        var myChart = new Chart(ctx, {
+        var ctxLine = document.getElementById("myChart").getContext("2d");
+        if(window.bar != undefined) 
+        window.bar.destroy(); 
+        window.bar = new Chart(ctxLine, {
             type: 'bar',
             data: {
                 labels: listOfTickers,
@@ -117,7 +118,7 @@ var wsb = {
                 }]
             },
             options: {
-                responsive: false,
+                responsive: true,
                 scales: {
                     yAxes: [{
                         ticks: {
