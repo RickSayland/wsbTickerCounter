@@ -131,7 +131,6 @@ var wsb = {
                 }
             }
         });
-
     }
 }
 var utilityFunctions = {

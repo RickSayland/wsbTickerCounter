@@ -49,7 +49,8 @@
         var some_colors = utilityFunctions.getRandomColorHex(50); //generate array of 50 colors
 
         $(document).ready(function () {
-            function update() {
+            document.getElementById('urlUpdateButton').addEventListener("click", () => url = document.getElementById('basic-url').value);
+            (function update() {
                 console.log("updating...");
                 wsb.getTickers(url)
                     .then(() => {
@@ -65,6 +66,7 @@
                         wsb.makeChart();
                     });
 
+                //create the loading bar loop
                 $(() => {
                     var current_progress = 0;
                     var interval = setInterval(function () {
@@ -77,15 +79,9 @@
                             clearInterval(interval);
                     }, 1000);
                 });
+                //again!
                 setTimeout(update, refreshRate * 1000);
-            }
-
-            var updateButton = document.getElementById('urlUpdateButton');
-            updateButton.addEventListener("click", () => {
-                url = document.getElementById('basic-url').value;
-            });
-
-            update();
+            })();
         });
     </script>
 </body>
