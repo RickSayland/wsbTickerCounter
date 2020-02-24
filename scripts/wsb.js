@@ -104,8 +104,8 @@ var wsb = {
     makeChart: () => {
         //Make the chart
         var ctxLine = document.getElementById("myChart").getContext("2d");
-        if(window.bar != undefined) 
-        window.bar.destroy(); 
+        if (window.bar != undefined)
+            window.bar.destroy();
         window.bar = new Chart(ctxLine, {
             type: 'bar',
             data: {
@@ -135,14 +135,13 @@ var wsb = {
     }
 }
 var utilityFunctions = {
-    getRandomColorHex: (howMany) => {
-        var hex = "0123456789ABCDEF";
-        var colors = [];
+    getRandomColors: (howMany) => {
+        colors = [];
         for (var j = 1; j <= howMany; j++) {
-            color = "#";
-            for (var i = 1; i <= 6; i++) {
-                color += hex[Math.floor(Math.random() * 16)];
-            }
+            var red = Math.floor(Math.random() * 255);
+            var green = Math.floor(Math.random() * 255);
+            var blue = Math.floor(Math.random() * 255);
+            var color = 'rgba(' + red + ',' + green + ',' + blue + ',' + 0.5 + ')';
             colors.push(color);
         }
         return colors;
