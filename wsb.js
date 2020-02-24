@@ -100,5 +100,51 @@ var wsb = {
     },
     validateTicker: (symbol) => {
         return ($.inArray(symbol, all_tickers) >= 0)
+    },
+    makeChart: () => {
+        //Make the chart
+        var ctx = document.getElementById('myChart');
+        ctx.getContext('2d').clearRect(0, 0, ctx.width, ctx.height);
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: listOfTickers,
+                datasets: [{
+                    label: 'Count (' + wsb.comment_ids.length + ' comments parsed)',
+                    backgroundColor: some_colors,
+                    data: wsb.getTickerCounts(),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            precision: 0,
+                            beginAtZero: true
+                        }
+                    }]
+                },
+                animation: {
+                    duration: 0
+                }
+            }
+        });
+
+    }
+}
+var utilityFunctions = {
+    getRandomColorHex: (howMany) => {
+        var hex = "0123456789ABCDEF";
+        var colors = [];
+        for (var j = 1; j <= howMany; j++) {
+            color = "#";
+            for (var i = 1; i <= 6; i++) {
+                color += hex[Math.floor(Math.random() * 16)];
+            }
+            colors.push(color);
+        }
+        return colors;
     }
 }

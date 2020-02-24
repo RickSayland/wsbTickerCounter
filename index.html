@@ -26,7 +26,8 @@
             <h1 class="display-4" id="WSBTickerCounterTitle">WSB Ticker Counter</h1>
             <label for="basic-url">URL</label>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="https://old.reddit.com/r/wallstreetbets/comments/f8fuqb/what_are_your_moves_tomorrow_february_24_2020/">
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"
+                    value="https://old.reddit.com/r/wallstreetbets/comments/f8fuqb/what_are_your_moves_tomorrow_february_24_2020/">
                 <button class="btn btn-success" id="urlUpdateButton">Update</button>
             </div>
             <div id="puts"></div>
@@ -42,47 +43,27 @@
     </div>
 
     <script>
+        //GLOBAL SETTINGS
         var url = document.getElementById('basic-url').value;
+        var refreshRate = 10; //seconds
+        var some_colors = utilityFunctions.getRandomColorHex(50); //generate array of 50 colors
+
         $(document).ready(function () {
-            var refreshRate = 10; //seconds
-            var some_colors = getRandomColorHex(50);
             function update() {
                 console.log("updating...");
-                document.getElementById('puts').innerHTML = "PUTS: " + wsb.puts;
-                document.getElementById('calls').innerHTML = "CALLS: " + wsb.calls;
-                if (wsb.puts > wsb.calls) document.getElementById('WSBTickerCounterTitle').innerHTML = "WSB Ticker Counter 🐻"
-                if (wsb.calls > wsb.puts) document.getElementById('WSBTickerCounterTitle').innerHTML = "WSB Ticker Counter 🐂"
-                wsb.getTickers(url).then(() => {
-                    console.log("total comments parsed: " + wsb.comment_ids.length);
-                    var ctx = document.getElementById('myChart');
-                    ctx.getContext('2d').clearRect(0, 0, ctx.width, ctx.height);
-                    var myChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: listOfTickers,
-                            datasets: [{
-                                label: 'Count (' + wsb.comment_ids.length + ' comments parsed)',
-                                backgroundColor: some_colors,
-                                data: wsb.getTickerCounts(),
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: false,
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        precision: 0,
-                                        beginAtZero: true
-                                    }
-                                }]
-                            },
-                            animation: {
-                                duration: 0
-                            }
-                        }
+                wsb.getTickers(url)
+                    .then(() => {
+                        console.log("total comments parsed: " + wsb.comment_ids.length);
+
+                        //Update some labels
+                        document.getElementById('puts').innerHTML = "PUTS: " + wsb.puts;
+                        document.getElementById('calls').innerHTML = "CALLS: " + wsb.calls;
+                        if (wsb.puts > wsb.calls) document.getElementById('WSBTickerCounterTitle').innerHTML = "WSB Ticker Counter 🐻"
+                        if (wsb.calls > wsb.puts) document.getElementById('WSBTickerCounterTitle').innerHTML = "WSB Ticker Counter 🐂"
+
+                        //Remake the chart
+                        wsb.makeChart();
                     });
-                });
 
                 $(() => {
                     var current_progress = 0;
@@ -100,22 +81,10 @@
             }
 
             var updateButton = document.getElementById('urlUpdateButton');
-            updateButton.addEventListener("click",() => {
+            updateButton.addEventListener("click", () => {
                 url = document.getElementById('basic-url').value;
             });
 
-            function getRandomColorHex(howMany) {
-                var hex = "0123456789ABCDEF";
-                var colors = [];
-                for (var j = 1; j <= howMany; j++) {
-                    color = "#";
-                    for (var i = 1; i <= 6; i++) {
-                        color += hex[Math.floor(Math.random() * 16)];
-                    }
-                    colors.push(color);
-                }
-                return colors;
-            }
             update();
         });
     </script>
