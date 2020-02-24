@@ -1,8 +1,8 @@
 // GET THE COMMENTS
 var listOfTickers = [];
 var tickerRegex = '[ $][A-Z]{2,4}[ .!?]';
-var putsRegex = "\\bputs\\b";
-var callsRegex = "\\bcalls\\b"
+var putsRegex = "\\bputs?\\b";
+var callsRegex = "\\bcalls?\\b"
 var wsb = {
     tickers: [],
     comment_ids: [],
