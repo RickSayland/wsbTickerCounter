@@ -1,9 +1,8 @@
-// GET THE COMMENTS
 var listOfTickers = [];
 var tickerRegex = '[ $][A-Z]{2,4}[ .!?]';
 var putsRegex = "\\bputs?\\b";
 var callsRegex = "\\bcalls?\\b"
-var wsb = {
+export var wsb = {
     tickers: [],
     comment_ids: [],
     puts: 0,
@@ -112,7 +111,7 @@ var wsb = {
                 labels: listOfTickers,
                 datasets: [{
                     label: 'Count (' + wsb.comment_ids.length + ' comments parsed)',
-                    backgroundColor: some_colors,
+                    backgroundColor: wsb.utilityFunctions.getRandomColors(50),
                     data: wsb.getTickerCounts(),
                     borderWidth: 1
                 }]
